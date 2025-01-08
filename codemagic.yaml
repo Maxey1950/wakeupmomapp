@@ -1,15 +1,39 @@
-workflows:
+react-native-ios:
 
-  ios-workflow:
+  environment:
 
-    name: iOS Workflow 
+    groups:
 
-    # ....
+      # ...
 
-    environment:
+    vars:
 
-      ios_signing:
+      BUNDLE_ID: "io.codemagic.sample.reactnative"
 
-        distribution_type: development # or: ad_hoc | development | enterprise
+      XCODE_WORKSPACE: "fACE.xcworkspace" # <-- Name of your Xcode workspace
 
-        bundle_identifier: com.maxey.wakeupmom
+      XCODE_SCHEME: "fACE" # <-- Name of your Xcode scheme
+
+scripts:
+
+  # ...
+
+  - name: Build ipa for distribution
+
+    script: | 
+
+      xcode-project build-ipa \
+
+        --workspace "$CM_BUILD_DIR/ios/$XCODE_WORKSPACE" \
+
+        --scheme "$XCODE_SCHEME"
+
+artifacts:
+
+  - build/ios/ipa/*.ipa
+
+  - /tmp/xcodebuild_logs/*.log
+
+  - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+
+  - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
