@@ -1,0 +1,15 @@
+workflows:
+
+  ios-workflow:
+
+    name: iOS Workflow 
+
+    # ....
+
+    environment:
+
+      ios_signing:
+
+        distribution_type: development # or: ad_hoc | development | enterprise
+
+        bundle_identifier: com.maxey.wakeupmom
